@@ -46,6 +46,46 @@
             export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath graphicsLibs}:$LD_LIBRARY_PATH"
           '';
         };
+
+        packages.default = pkgs.stdenv.mkDerivation {
+          pname = "uiua pong";
+          version = "0.0.1";
+          src = ./src;
+
+          nativeBuildInputs = with pkgs; [
+            uiua
+            makeWrapper
+          ];
+
+          buildInputs = graphicsLibs;
+
+          buildPhase = ''
+            runHook preBuild
+
+            uiua stand --name pong ./main.ua
+
+            runHook postBuild
+          '';
+
+          installPhase = ''
+            runHook preInstall
+
+            mkdir -p $out/bin
+            mv pong $out/bin/
+
+            runHook postInstall
+          '';
+
+          postFixup = ''
+            wrapProgram $out/bin/pong \
+              --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath graphicsLibs}" \
+              --add-flag run
+          '';
+
+          meta = {
+            mainProgram = "pong";
+          };
+        };
       }
     );
 }
