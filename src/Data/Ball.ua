@@ -9,12 +9,12 @@ Ray ~ "../Ray"
     Color ← Ray.Color.White
   }
 
-  ReflectBot ↚ ⍜SpeedY(˜⨬(∘|¯)) ⟜(>Ray.GetScreenHeight ⊣ Center)
+  BounceTopBot ↚ ⍜SpeedY(˜⨬(∘|¯)) ⟜(↥⊃(>Ray.GetScreenHeight|<0) ⊣ Center)
 
   Draw ← Ray.DrawCircle Center ⟜Radius ⟜Color
 
   Update ← (
     ⍜Center+ ⟜[SpeedX ⟜SpeedY]
-    ReflectBot
+    BounceTopBot
   )
 └─╴
