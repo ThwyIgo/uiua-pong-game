@@ -26,5 +26,6 @@ MainLoop ← (
   Ray.EndDrawing
 )
 
+# MainLoop
 ⍢(MainLoop|¬Ray.WindowShouldClose)
 Ray.CloseWindow

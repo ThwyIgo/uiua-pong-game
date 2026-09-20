@@ -9,6 +9,12 @@ Ray ~ "../Ray"
     Color ← Ray.Color.White
   }
 
-  Draw   ← Ray.DrawCircle Center⟜Radius⟜Color
-  Update ← ⍜Center (+) ⊙⊂ ⊃(∘|SpeedX|SpeedY)
+  ReflectBot ↚ ⍜SpeedY(˜⨬(∘|¯)) ⟜(>Ray.GetScreenHeight ⊣ Center)
+
+  Draw ← Ray.DrawCircle Center ⟜Radius ⟜Color
+
+  Update ← (
+    ⍜Center+ ⟜[SpeedX ⟜SpeedY]
+    ReflectBot
+  )
 └─╴
