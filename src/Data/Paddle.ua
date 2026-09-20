@@ -1,9 +1,12 @@
 Ray ~ "../Ray"
 
 ┌─╴Paddle
+  ~ControlKeys {MoveUp MoveDown}
+
   ~ {
     Position # [X Y]
     Size # [X Y]
+    Controls # ControlKeys
     Speed ← [0 0] # [X Y]
     Color ← Ray.Color.White
   }
@@ -27,8 +30,8 @@ Ray ~ "../Ray"
   )
 
   MoveUpDown ↚ (
-    ⍜PositionY+ ⟜(×Ray.IsKeyDown Ray.Key.Up ¯SpeedY)
-    ⍜PositionY+ ⟜(×Ray.IsKeyDown Ray.Key.Down SpeedY)
+    ⍜PositionY+ ⟜(×Ray.IsKeyDown ControlKeys.MoveUp Controls ⟜(¯SpeedY))
+    ⍜PositionY+ ⟜(×Ray.IsKeyDown ControlKeys.MoveDown Controls ⟜SpeedY)
   )
 
   Draw ← Ray.DrawRectangle Position ⟜Size ⟜Color
