@@ -11,7 +11,10 @@ Ray ~ "../Ray"
   SpeedY ← ⊣Speed
   SpeedX ← ⊢Speed
 
-  BounceTopBot ↚ ⍜SpeedY(˜⨬(∘|¯)) ⟜(↥⊃(>Ray.GetScreenHeight|<0) ⊣ Center)
+  PositionX ← ⊢Center
+  PositionY ← ⊣Center
+
+  BounceTopBot ↚ ⍜SpeedY(˜⨬(∘|¯)) ⟜(↥⊃(>Ray.GetScreenHeight|<0) PositionY)
 
   Draw ← Ray.DrawCircle Center ⟜Radius ⟜Color
 

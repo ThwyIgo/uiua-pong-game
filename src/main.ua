@@ -8,10 +8,12 @@ PaddleHeight ← 70
 ~Context {
   Ball ← (
     Ball ÷2Ray!([GetScreenWidth GetScreenHeight]) 15
-    °⊸Ball.SpeedX 7
-    °⊸Ball.SpeedY 7
+    °⊸Ball.Speed [7 7]
   )
-  Paddle₁ ← (Paddle [0 (-÷2PaddleHeight ÷2Ray.GetScreenHeight)] PaddleWidth_PaddleHeight)
+  Paddle₁ ← (
+    Paddle [0 (-÷2PaddleHeight ÷2Ray.GetScreenHeight)] PaddleWidth_PaddleHeight
+    °⊸Paddle.Speed [0 6]
+  )
   Paddle₂ ← (Paddle [(-PaddleWidth Ray.GetScreenWidth (-÷2PaddleHeight ÷2Ray.GetScreenHeight))] PaddleWidth_PaddleHeight)
 }
 
@@ -26,6 +28,7 @@ MainLoop ← (
   °⊸Context.Ball Ball.Update ⊸Context.Ball
   Ball.Draw ⊸Context.Ball
 
+  °⊸Context.Paddle₁ Paddle.Update ⊸Context.Paddle₁
   Paddle.Draw ⊸Context.Paddle₁
   Paddle.Draw ⊸Context.Paddle₂
 
