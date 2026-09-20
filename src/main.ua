@@ -1,19 +1,30 @@
-R ~ "./Ray"
+Ray ~ "./Ray"
 
-# This is an example of a minimal Rayua application.
-# It creates a window and sets the background to a color.
-# Extend it to do more, by adding code to the MainLoop function.
-# See other examples for more how to use specific functions
+Data ~ "./Data/mod" ~ Ball
 
-R.InitWindow 640 480 "Rayua minimal example"
-R.SetTargetFPS 60
+~Context {
+  Ball ← (
+    Ball ÷2Ray!([GetScreenWidth GetScreenHeight]) 15
+    °⊸Ball.SpeedX 7
+    °⊸Ball.SpeedY 7
+  )
+  Paddle₁ ← 0
+  Paddle₂ ← 0
+}
+
+Ray.InitWindow 640 480 "Rayua minimal example"
+Ray.SetTargetFPS 60
+Context
 
 MainLoop ← (
-  R.ClearBackground R.Color.SkyBlue
-  R.BeginDrawing
-  # <do stuff here>
-  R.EndDrawing
+  Ray.ClearBackground Ray.Color.Black
+  Ray.BeginDrawing
+
+  °⊸Context.Ball Ball.Update ⊸Context.Ball
+  Ball.Draw ⊸Context.Ball
+
+  Ray.EndDrawing
 )
 
-⍢(MainLoop|¬R.WindowShouldClose)
-R.CloseWindow
+⍢(MainLoop|¬Ray.WindowShouldClose)
+Ray.CloseWindow
