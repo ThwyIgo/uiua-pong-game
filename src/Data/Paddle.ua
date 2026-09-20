@@ -4,17 +4,16 @@ Ray ~ "../Ray"
   ~ControlKeys {MoveUp MoveDown}
 
   ~ {
-    Position # [X Y]
-    Size # [X Y]
+    Rectangle # Ray.Rectangle
     Controls # ControlKeys
     Speed ← [0 0] # [X Y]
     Color ← Ray.Color.White
   }
 
-  PositionX ← ⊢Position
-  PositionY ← ⊣Position
-  SizeX     ← ⊢Size
-  SizeY     ← ⊣Size
+  PositionX ← Ray.Rectangle.X Rectangle
+  PositionY ← Ray.Rectangle.Y Rectangle
+  SizeX     ← Ray.Rectangle.Width Rectangle
+  SizeY     ← Ray.Rectangle.Height Rectangle
   SpeedX    ← ⊢Speed
   SpeedY    ← ⊣Speed
 
@@ -34,7 +33,7 @@ Ray ~ "../Ray"
     ⍜PositionY+ ⟜(×Ray.IsKeyDown ControlKeys.MoveDown Controls ⟜SpeedY)
   )
 
-  Draw ← Ray.DrawRectangle Position ⟜Size ⟜Color
+  Draw ← Ray.DrawRectangle [⊃Ray.Rectangle.X Ray.Rectangle.Y] ⟜[⊃Ray.Rectangle.Width Ray.Rectangle.Height] Rectangle ⟜Color
   Update ← (
     MoveUpDown
     ClampTopBot

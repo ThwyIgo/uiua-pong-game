@@ -1,5 +1,7 @@
 Ray ~ "../Ray"
 
+~ "./Paddle" ~ Paddle
+
 ┌─╴Ball
   ~ {
     Center # [X Y]
@@ -21,5 +23,12 @@ Ray ~ "../Ray"
   Update ← (
     ⍜Center+ ⟜Speed
     BounceTopBot
+  )
+
+  # bool ? Paddle self
+  CollidingPaddle ← (
+    ⊃(⋅∘|⊙◌) # b a
+    ⊙Paddle.Rectangle
+    Ray.CheckCollisionCircleRec Center ⟜Radius
   )
 └─╴

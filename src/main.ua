@@ -11,11 +11,11 @@ PaddleHeight ← 70
     °⊸Ball.Speed [7 7]
   )
   Paddle₁ ← (
-    Paddle [0 (-÷2PaddleHeight ÷2Ray.GetScreenHeight)] PaddleWidth_PaddleHeight (Paddle.ControlKeys @w @s)
+    Paddle (Ray.Rectangle 0 (-÷2PaddleHeight ÷2Ray.GetScreenHeight) PaddleWidth PaddleHeight) (Paddle.ControlKeys @w @s)
     °⊸Paddle.Speed [0 6]
   )
   Paddle₂ ← (
-    Paddle [(-PaddleWidth Ray.GetScreenWidth (-÷2PaddleHeight ÷2Ray.GetScreenHeight))] PaddleWidth_PaddleHeight (Paddle.ControlKeys Ray.Key.Up Ray.Key.Down)
+    Paddle (Ray.Rectangle (-PaddleWidth Ray.GetScreenWidth) (-÷2PaddleHeight ÷2Ray.GetScreenHeight) PaddleWidth PaddleHeight) (Paddle.ControlKeys Ray.Key.Up Ray.Key.Down)
     °⊸Paddle.Speed [0 6]
   )
 }
@@ -35,6 +35,8 @@ MainLoop ← (
   °⊸Context.Paddle₂ Paddle.Update ⊸Context.Paddle₂
   Paddle.Draw ⊸Context.Paddle₁
   Paddle.Draw ⊸Context.Paddle₂
+
+  &p Ball.CollidingPaddle ⊸⊃Context.Paddle₂ Context.Ball
 
   Ray.EndDrawing
 )
