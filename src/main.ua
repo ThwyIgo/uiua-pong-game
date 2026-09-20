@@ -18,7 +18,21 @@ PaddleHeight ← 70
     Paddle (Ray.Rectangle (-PaddleWidth Ray.GetScreenWidth) (-÷2PaddleHeight ÷2Ray.GetScreenHeight) PaddleWidth PaddleHeight) (Paddle.ControlKeys Ray.Key.Up Ray.Key.Down)
     °⊸Paddle.Speed [0 6]
   )
+  Score₁ ← 0
+  Score₂ ← 0
 }
+
+# Context ? Context
+UpdateScore ← (
+  Ball.CurrentTouchingEdge ⊸Context.Ball
+  ⨬(∘
+  | ( Context ⊃(Context.Score₁|+1Context.Score₂)
+      ˜°⊸Context.Score₁
+      ˜°⊸Context.Score₂)
+  | ( Context ⊃(+1Context.Score₁|Context.Score₂)
+      ˜°⊸Context.Score₁
+      ˜°⊸Context.Score₂))
+)
 
 Ray.InitWindow 640 480 "Rayua minimal example"
 Ray.SetTargetFPS 60
@@ -36,7 +50,8 @@ MainLoop ← (
   °⊸Context.Ball Ball.Update ⊸⊃([Context.Paddle₁ ⟜Context.Paddle₂]|Context.Ball)
   Ball.Draw ⊸Context.Ball
 
-  &p Ball.CurrentTouchingEdge ⊸Context.Ball
+  UpdateScore
+  &p $"_  _" ⊸⊃Context.Score₁ Context.Score₂
 
   Ray.EndDrawing
 )
