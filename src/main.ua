@@ -36,6 +36,8 @@ MainLoop ← (
   °⊸Context.Ball Ball.Update ⊸⊃([Context.Paddle₁ ⟜Context.Paddle₂]|Context.Ball)
   Ball.Draw ⊸Context.Ball
 
+  &p Ball.CurrentTouchingEdge ⊸Context.Ball
+
   Ray.EndDrawing
 )
 

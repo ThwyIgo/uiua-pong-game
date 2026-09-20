@@ -22,6 +22,15 @@ Ray ~ "../Ray"
   # self
   Draw ← Ray.DrawCircle Center ⟜Radius ⟜Color
 
+  # 0 = none | 1 = left | 2 = right
+  # edgeId ? self
+  CurrentTouchingEdge ← (
+    ⍣(⊃(˙⍤(<0 PositionX)|1◌)
+    | ⊃(˙⍤(>Ray.GetScreenWidth PositionX)|2◌)
+    | 0
+    )
+  )
+
   # bool ? Paddle self
   CollidingPaddle ← (
     ⊃(⋅∘|⊙◌) # b a
