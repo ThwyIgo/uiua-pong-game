@@ -28,15 +28,13 @@ MainLoop ← (
   Ray.ClearBackground Ray.Color.Black
   Ray.BeginDrawing
 
-  °⊸Context.Ball Ball.Update ⊸Context.Ball
-  Ball.Draw ⊸Context.Ball
-
   °⊸Context.Paddle₁ Paddle.Update ⊸Context.Paddle₁
   °⊸Context.Paddle₂ Paddle.Update ⊸Context.Paddle₂
   Paddle.Draw ⊸Context.Paddle₁
   Paddle.Draw ⊸Context.Paddle₂
 
-  &p Ball.CollidingPaddle ⊸⊃Context.Paddle₂ Context.Ball
+  °⊸Context.Ball Ball.Update ⊸⊃([Context.Paddle₁ ⟜Context.Paddle₂]|Context.Ball)
+  Ball.Draw ⊸Context.Ball
 
   Ray.EndDrawing
 )

@@ -16,19 +16,32 @@ Ray ~ "../Ray"
   PositionX ← ⊢Center
   PositionY ← ⊣Center
 
+  # self ? self
   BounceTopBot ↚ ⍜SpeedY(˜⨬(∘|¯)) ⟜(↥⊃(>Ray.GetScreenHeight|<0) PositionY)
 
+  # self
   Draw ← Ray.DrawCircle Center ⟜Radius ⟜Color
-
-  Update ← (
-    ⍜Center+ ⟜Speed
-    BounceTopBot
-  )
 
   # bool ? Paddle self
   CollidingPaddle ← (
     ⊃(⋅∘|⊙◌) # b a
     ⊙Paddle.Rectangle
     Ray.CheckCollisionCircleRec Center ⟜Radius
+  )
+
+  # self ? Paddles self
+  Update ← (
+    ⊃(⋅∘|⊙◌) # b a
+
+    ⍜Center+ ⟜Speed
+    BounceTopBot
+
+    ⟜∘
+    ⊃(⋅⊙∘|∘) # b c a
+    # Check if Colliding with any Paddle in the array
+    /↥♭⊞(˜CollidingPaddle) ¤
+
+    # Invert SpeedX if colliding
+    ⨬(∘|⍜SpeedX ¯)
   )
 └─╴
