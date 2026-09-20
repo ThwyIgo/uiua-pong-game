@@ -1,1 +1,2 @@
 ~ "./Ball" ~ Ball
+~ "./Paddle" ~ Paddle

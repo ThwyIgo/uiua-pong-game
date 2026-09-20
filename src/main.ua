@@ -1,6 +1,9 @@
 Ray ~ "./Ray"
 
-Data ~ "./Data/mod" ~ Ball
+Data ~ "./Data/mod" ~ Ball Paddle
+
+PaddleWidth  ← 10
+PaddleHeight ← 70
 
 ~Context {
   Ball ← (
@@ -8,8 +11,8 @@ Data ~ "./Data/mod" ~ Ball
     °⊸Ball.SpeedX 7
     °⊸Ball.SpeedY 7
   )
-  Paddle₁ ← 0
-  Paddle₂ ← 0
+  Paddle₁ ← (Paddle [0 (-÷2PaddleHeight ÷2Ray.GetScreenHeight)] PaddleWidth_PaddleHeight)
+  Paddle₂ ← (Paddle [(-PaddleWidth Ray.GetScreenWidth (-÷2PaddleHeight ÷2Ray.GetScreenHeight))] PaddleWidth_PaddleHeight)
 }
 
 Ray.InitWindow 640 480 "Rayua minimal example"
@@ -22,6 +25,9 @@ MainLoop ← (
 
   °⊸Context.Ball Ball.Update ⊸Context.Ball
   Ball.Draw ⊸Context.Ball
+
+  Paddle.Draw ⊸Context.Paddle₁
+  Paddle.Draw ⊸Context.Paddle₂
 
   Ray.EndDrawing
 )
