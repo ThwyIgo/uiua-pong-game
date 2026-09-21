@@ -1,6 +1,6 @@
 Ray ~ "./Ray"
 
-Data ~ "./Data/mod" ~ Ball Paddle
+Data ~ "./Data/mod" ~ Ball Paddle RandomSpeed
 
 PaddleWidth  ← 10
 PaddleHeight ← 70
@@ -8,7 +8,7 @@ PaddleHeight ← 70
 ~Context {
   Ball ← (
     Ball ÷2Ray!([GetScreenWidth GetScreenHeight]) 15
-    °⊸Ball.Speed [7 7]
+    °⊸Ball.Speed RandomSpeed [7 7]
   )
   Paddle₁ ← (
     Paddle (Ray.Rectangle 0 (-÷2PaddleHeight ÷2Ray.GetScreenHeight) PaddleWidth PaddleHeight) (Paddle.ControlKeys @w @s)
@@ -56,6 +56,6 @@ MainLoop ← (
   Ray.EndDrawing
 )
 
-# MainLoop
 ⍢(MainLoop|¬Ray.WindowShouldClose)
 Ray.CloseWindow
+◌
