@@ -34,7 +34,7 @@ UpdateScore ← (
       ˜°⊸Context.Score₂))
 )
 
-Ray.InitWindow 640 480 "Rayua minimal example"
+Ray.InitWindow 640 480 "Pong"
 Ray.SetTargetFPS 60
 Context
 
@@ -44,14 +44,14 @@ MainLoop ← (
 
   °⊸Context.Paddle₁ Paddle.Update ⊸Context.Paddle₁
   °⊸Context.Paddle₂ Paddle.Update ⊸Context.Paddle₂
+  °⊸Context.Ball Ball.Update ⊸⊃([Context.Paddle₁ ⟜Context.Paddle₂]|Context.Ball)
+  UpdateScore
+
+  Ray.DrawText ⊙([0 -20Ray.GetScreenHeight] 20 Ray.Color.White) $"Player 1: _ | Player 2: _" ⊸⊃Context.Score₁ Context.Score₂
+
+  Ball.Draw ⊸Context.Ball
   Paddle.Draw ⊸Context.Paddle₁
   Paddle.Draw ⊸Context.Paddle₂
-
-  °⊸Context.Ball Ball.Update ⊸⊃([Context.Paddle₁ ⟜Context.Paddle₂]|Context.Ball)
-  Ball.Draw ⊸Context.Ball
-
-  UpdateScore
-  &p $"_  _" ⊸⊃Context.Score₁ Context.Score₂
 
   Ray.EndDrawing
 )
