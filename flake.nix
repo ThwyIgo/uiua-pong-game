@@ -53,33 +53,25 @@
           src = ./src;
 
           nativeBuildInputs = with pkgs; [
-            uiua
             makeWrapper
           ];
 
           buildInputs = graphicsLibs;
 
-          buildPhase = ''
-            runHook preBuild
-
-            uiua stand --name pong ./main.ua
-
-            runHook postBuild
-          '';
+          dontBuild = true;
 
           installPhase = ''
             runHook preInstall
 
+            mkdir -p $out/share/uiua-pong
+            cp -r $src/* $out/share/uiua-pong/
+
             mkdir -p $out/bin
-            mv pong $out/bin/
+            makeWrapper ${pkgs.uiua}/bin/uiua $out/bin/pong \
+              --add-flags "run $out/share/uiua-pong/main.ua" \
+              --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath graphicsLibs}"
 
             runHook postInstall
-          '';
-
-          postFixup = ''
-            wrapProgram $out/bin/pong \
-              --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath graphicsLibs}" \
-              --add-flag run
           '';
 
           meta = {

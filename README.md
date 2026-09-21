@@ -15,7 +15,7 @@ nix run
 
 Or if you don't want to clone the repository:
 ```sh
-nix run "github:ThwyIgo/uiua-pong-game"
+nix run 'github:ThwyIgo/uiua-pong-game'
 ```
 
 Use "W" and "S" to move the left Paddle. Use "↑" and "↓" to move the right Paddle.
